@@ -30,10 +30,20 @@ public class Calendar {
         }
         System.out.println("+");
         System.out.print("|  ");
-        for (int i = date - 7; i <= 1; i++) {
-            System.out.print("  ");
+        for (int t = 7; t >= date; t--) {
+            for (int i = date - 6; i <= 1; i++) {
+                System.out.print(date - t + "  |  ");
+            }
+            System.out.println();
+            System.out.print("|  ");
         }
-        for (int i = 1; i <= 7; i++) {
+        for (int y = date; y < 10; y++) {
+            System.out.print(y + "  |  ");
+        }
+        for (int z = 10; z <= days; z++) {
+            System.out.print(z + "  |  ");
+        }
+        for (int x = 1; x <= 7; x++) {
             System.out.print("+------");
         }
         System.out.println("+");
@@ -44,6 +54,8 @@ public class Calendar {
         System.out.println("This program creates a calendar");
         System.out.println("based on the number of days in the month");
         System.out.println("and the date of the first Sunday.");
+        System.out.println("The number of days can be from 28 to 31,");
+        System.out.println("and the date of the first Sunday an be from 1 to 7");
         System.out.println("");
     }
 }
