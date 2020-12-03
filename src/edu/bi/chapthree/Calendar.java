@@ -2,6 +2,8 @@ package edu.bi.chapthree;
 
 import java.util.*;
 
+//Convention:
+// days week are 0 - 6, week starts with Sunday
 public class Calendar {
 
     public static void main(String[] args) {
@@ -11,37 +13,56 @@ public class Calendar {
         System.out.print("number of days in the month? ");
         int days = console.nextInt();
         System.out.print("date of first Sunday? ");
-        int date = console.nextInt();
+        int dateOfFirstSunday = console.nextInt();
 
-        printCalendar(date, days);
+        printCalendar(dateOfFirstSunday, days);
     }
 
     //creates the calendar
-    public static void printCalendar(int date, int days) {
+    public static void printCalendar(int dateOfFirstSunday, int days) {
         printHeader();
+
+        int dayOfFirst = dayOfFirst(dateOfFirstSunday);
+
+        //print blank squares at beginning of first week
+        for (int i = 0; i < dayOfFirst; i++) {
+            printCalendarSquare("     ");
+        }
+
+        //print rest of first week
+        for (int i = dayOfFirst; i < 7; i++) {
+            printCalendarSquare("   " + (i-dayOfFirst+1) + "  ");
+        }
+        //prepares for next line
+        System.out.print("|\n");
+
+        // print middle weeks
+
+        //print end week
 
         //prints the first week
         System.out.print("|  ");
         for (int t = 7; t >= 7; t--) {
-            int i = (date - 6);
+            int i = (dateOfFirstSunday - 6);
             for (int j = i; j <= 1; j++) {
                 System.out.print("    |  ");
             }
         }
 
-        for (int l = date; l > 1; l--) {
-            int k = date;
+        for (int l = dateOfFirstSunday; l > 1; l--) {
+            int k = dateOfFirstSunday;
             System.out.print(" " + ((k + 1) - l) + "  |  ");
         }
         System.out.println();
         //prints body weeks
         System.out.print("|  ");
-            for (int x = date; x < 10; x++) {
+            for (int x = dateOfFirstSunday; x < 10; x++) {
                 System.out.print(" " + x + "  |  ");
-                for (int w = x; w >= (date + 7); w--) {
+                for (int w = x; w >= (dateOfFirstSunday + 7); w--) {
                     System.out.println();
                     System.out.print("|   " + x + "  |  ");
                 }
+                System.out.println();
             }
 
             for (int y = 10; y <= days; y++) {
@@ -55,6 +76,16 @@ public class Calendar {
             System.out.print("+------");
         }
         System.out.println("+");
+    }
+
+    private static void printCalendarSquare(String s) {
+        System.out.print("|" + s);
+    }
+
+    //if dateOfFirstSunday == 1, then return 0
+    // otherwise 8 - dateOfFirstSunday
+    private static int dayOfFirst(int dateOfFirstSunday) {
+        return (8-dateOfFirstSunday)%7;
     }
 
     private static void printHeader() {
