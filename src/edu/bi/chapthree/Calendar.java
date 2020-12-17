@@ -9,46 +9,77 @@ public class Calendar {
         giveIntro();
 
         System.out.print("number of days in the month? ");
-        int days = console.nextInt();
+        int daysInMonth = console.nextInt();
         System.out.print("date of first Sunday? ");
-        int date = console.nextInt();
+        int dateOfFirstSunday = console.nextInt();
 
-        printCalendar(date, days);
+        printCalendar(dateOfFirstSunday, daysInMonth);
     }
 
     //creates the calendar
-    public static void printCalendar(int date, int days) {
+    public static void printCalendar(int dateOfFirstSunday, int daysInMonth) {
         printHeader();
 
-        //prints the first week
-        System.out.print("|  ");
-        for (int t = 7; t >= 7; t--) {
-            int i = (date - 6);
-            for (int j = i; j <= 1; j++) {
-                System.out.print("    |  ");
+            int firstDay = (7 - dateOfFirstSunday);
+
+            //prints the first week if there are blank days
+            if (firstDay < 6) {
+                for (int blank = (6 - firstDay); blank <= 6; blank++) {
+                    System.out.print("|      ");
+                }
+                for (int i = 1 + firstDay; i <= 6; i++) {
+                    System.out.print("|   " + (i - firstDay) + "  ");
+                }
+                System.out.print("|\n");
+            }
+
+        //print first full week
+        for (int i = dateOfFirstSunday; i < (dateOfFirstSunday + 7); i++) {
+            if (i < 10) {
+                System.out.print("|   " + i + "  ");
+            } else if (i >= 10) {
+                System.out.print("|  " + i + "  ");
             }
         }
+        System.out.print("|\n");
 
-        for (int l = date; l > 1; l--) {
-            int k = date;
-            System.out.print(" " + ((k + 1) - l) + "  |  ");
+        //print second full week
+        for (int i = (dateOfFirstSunday + 7); i < (dateOfFirstSunday + 14); i++) {
+            if (i < 10) {
+                System.out.print("|   " + i + "  ");
+            } else if (i >= 10) {
+                System.out.print("|  " + i + "  ");
+            }
         }
-        System.out.println();
-        //prints body weeks
-        System.out.print("|  ");
-            for (int x = date; x < 10; x++) {
-                System.out.print(" " + x + "  |  ");
-                for (int w = x; w >= (date + 7); w--) {
-                    System.out.println();
-                    System.out.print("|   " + x + "  |  ");
+        System.out.print("|\n");
+
+        //print third full week
+        for (int i = (dateOfFirstSunday + 14); i < (dateOfFirstSunday + 21); i++) {
+            System.out.print("|  " + i + "  ");
+        }
+        System.out.print("|\n");
+
+        //print fourth full week
+        for (int i = (dateOfFirstSunday + 21); i < (dateOfFirstSunday + 28); i++) {
+            if (i <= daysInMonth) {
+                System.out.print("|  " + i + "  ");
+            } else if (i > daysInMonth) {
+                System.out.print("|      ");
+            }
+        }
+        System.out.print("|\n");
+
+        //prints final week
+        if ((dateOfFirstSunday + 28) <= daysInMonth) {
+            for (int i = (dateOfFirstSunday + 28); i < (dateOfFirstSunday + 35); i++) {
+                if (i <= daysInMonth) {
+                    System.out.print("|  " + i + "  ");
+                } else if (i > daysInMonth) {
+                    System.out.print("|      ");
                 }
             }
-
-            for (int y = 10; y <= days; y++) {
-                System.out.print(y + "  |  ");
-            }
-            System.out.println();
-            System.out.println("|  ");
+            System.out.print("|\n");
+        }
 
         //closes the calendar
         for (int z = 1; z <= 7; z++) {
@@ -56,6 +87,8 @@ public class Calendar {
         }
         System.out.println("+");
     }
+
+
 
     private static void printHeader() {
         System.out.print("  Sun  ");
